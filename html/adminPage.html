@@ -1,0 +1,14 @@
+<button onclick="location='/'">Back</button>
+<button onclick="location='/logout'" style="float: right">logout</button>
+<br>
+<form action="/kill" id="killForm">
+    <button>Kill App</button>
+</form>
+<br>
+<form method="post" action="/createcodes" enctype="multipart/form-data" id="codesForm">
+    Anzahl: <input type="number" name="count" required>
+    <br>
+    <button>Create</button>
+</form>
+<br>
+SHOWCODES
