@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class CreatePage extends JavalinLoggedInPage {
-    //TODO: add ERRORS (do i even need errors here? idk)
     public CreatePage(Context ctx) throws IOException {
         super(ctx);
         if (cancel) return;

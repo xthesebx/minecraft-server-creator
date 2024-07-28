@@ -31,9 +31,5 @@ public class Login extends JavalinPage {
             sessionobject.put("user", username).put("timestamp", System.currentTimeMillis() + 300000);
         Main.sessionUserTimer.put(sessionid, sessionobject);
         ctx.redirect("/");
-        /*TODO: session id timer mit login
-        TODO: Timer wird aktualisiert mit jeder aktion, 5 minuten timer i guess
-        TODO: danach move auf main page
-         */
     }
 }
