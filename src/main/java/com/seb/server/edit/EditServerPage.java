@@ -1,6 +1,6 @@
-package com.seb.edit;
+package com.seb.server.edit;
 
-import com.seb.Create.Paper;
+import com.seb.server.Create.Paper;
 import com.seb.Mysql;
 import com.seb.abs.JavalinAuthPage;
 import io.javalin.http.Context;

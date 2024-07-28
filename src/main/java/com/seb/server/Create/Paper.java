@@ -1,4 +1,4 @@
-package com.seb.Create;
+package com.seb.server.Create;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

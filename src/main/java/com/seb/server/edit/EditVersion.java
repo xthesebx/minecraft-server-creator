@@ -1,6 +1,6 @@
-package com.seb.edit;
+package com.seb.server.edit;
 
-import com.seb.Create.Paper;
+import com.seb.server.Create.Paper;
 import com.seb.Main;
 import com.seb.Mysql;
 import com.seb.abs.JavalinAuthPage;
@@ -32,11 +32,11 @@ public class EditVersion extends JavalinAuthPage {
         PrintWriter out;
         if (!Main.isWindows()) {
             out = new PrintWriter(name + "/start.sh");
-            out.println("screen -mS " + name + " /home/jdk-22.0.1/bin/java -Xms1G -Xmx 1G -jar " + jarname);
+            out.println("screen -mS " + name + " /home/jdk-22.0.1/bin/java -Xms1G -Xmx 1G -jar " + jarname + " --nogui");
         }
         else {
             out = new PrintWriter(name + "/start.bat");
-            out.println("D:\\Downloads\\jdk-21.0.3_windows-x64_bin\\jdk-21.0.3\\bin\\java.exe -jar " + jarname);
+            out.println("D:\\Downloads\\jdk-21.0.3_windows-x64_bin\\jdk-21.0.3\\bin\\java.exe -jar " + jarname + " --nogui");
         }
         out.close();
         ctx.redirect("/serverview/" + ctx.pathParam("id"));

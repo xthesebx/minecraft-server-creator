@@ -11,10 +11,10 @@ import java.util.HashMap;
 public class Main {
 
     public static JSONObject sessionUserTimer = new JSONObject();
-    public static HashMap<String, Process> serverPidMap = new HashMap<>();
+    public static HashMap<String, Process> serverObject = new HashMap<>();
 
     public static void main(String[] args) throws IOException, SQLException {
-        /*TODO: Add console, delete server, delete world (for resets), world download
+        /*TODO: delete server, delete world (for resets), world download
             Plugin upload + config settings (force port on value tho)
             Donation link, support for forge + maybe spigot?
             support tickets, maybe with discord bot?

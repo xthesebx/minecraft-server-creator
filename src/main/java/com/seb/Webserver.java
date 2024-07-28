@@ -1,7 +1,10 @@
 package com.seb;
 
-import com.seb.Create.CreatePage;
-import com.seb.Create.CreateServer;
+import com.hawolt.logger.Logger;
+import com.seb.server.BuildWebsocket;
+import com.seb.server.Console;
+import com.seb.server.Create.CreatePage;
+import com.seb.server.Create.CreateServer;
 import com.seb.Login.Login;
 import com.seb.Login.LoginPage;
 import com.seb.Login.Logout;
@@ -11,14 +14,21 @@ import com.seb.admin.AdminOverview;
 import com.seb.admin.CreateCodes;
 import com.seb.admin.Kill;
 import com.seb.basicSite.Overview;
-import com.seb.edit.EditServerPage;
-import com.seb.edit.EditVersion;
+import com.seb.server.ServerView;
+import com.seb.server.edit.EditServerPage;
+import com.seb.server.edit.EditVersion;
 import com.seb.startstop.Start;
 import com.seb.startstop.Stop;
 import io.javalin.Javalin;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.sql.SQLException;
+
 
 public class Webserver {
+    Console console;
     public Webserver() {
         Javalin javalin = Javalin.create().start(8080);
 
@@ -39,5 +49,12 @@ public class Webserver {
         javalin.get("/edit/<id>", EditServerPage::new);
         javalin.get("/admin", AdminOverview::new);
         javalin.get("/register", RegisterPage::new);
+        javalin.get("/console/<id>", BuildWebsocket::new);
+        javalin.get("/websocket.js", ctx -> ctx.result(Files.readString(Path.of("html/websocket.js"))));
+
+        javalin.ws("/ws/console/<id>", ws -> {
+            ws.onConnect(ctx -> console = new Console(ctx));
+            ws.onMessage(ctx -> console.read(ctx));
+        });
     }
 }

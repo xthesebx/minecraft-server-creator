@@ -1,4 +1,4 @@
-package com.seb.Create;
+package com.seb.server.Create;
 
 import com.hawolt.logger.Logger;
 import com.seb.abs.JavalinLoggedInPage;
@@ -21,7 +21,7 @@ public class CreateServer extends JavalinLoggedInPage {
         String version = ctx.formParam("version");
         String user = getUser();
         File dir = new File(user + "/" + name);
-        dir.mkdir();
+        dir.mkdirs();
         try {
             Paper.downloadPaperBuild(version, dir);
         } catch (Exception e) {
@@ -57,11 +57,11 @@ public class CreateServer extends JavalinLoggedInPage {
         for (File f : Objects.requireNonNull(dir.listFiles())) if (f.getName().startsWith("paper")) jarname = f.getName();
         if (!Main.isWindows()) {
             out = new PrintWriter(user + "/" + name + "/start.sh");
-            out.println("screen -mS " + user + "_" + name + " /home/jdk-22.0.1/bin/java -Xms1G -Xmx 1G -jar " + jarname);
+            out.println("screen -mS " + user + "_" + name + " /home/jdk-22.0.1/bin/java -Xms1G -Xmx 1G -jar " + jarname +  " --nogui");
         }
         else {
             out = new PrintWriter(user + "/" + name + "/start.bat");
-            out.println("D:\\Downloads\\jdk-21.0.3_windows-x64_bin\\jdk-21.0.3\\bin\\java.exe -jar paper-1.21-109.jar");
+            out.println("D:\\Downloads\\jdk-21.0.3_windows-x64_bin\\jdk-21.0.3\\bin\\java.exe -jar " + jarname + " --nogui");
         }
         out.close();
         ctx.redirect("/");

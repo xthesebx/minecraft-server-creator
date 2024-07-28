@@ -12,9 +12,9 @@ public class Stop extends JavalinAuthPage {
         super(ctx);
         if (cancel) return;
         String id = ctx.pathParam("id");
-        Process p = Main.serverPidMap.get(id);
+        Process p = Main.serverObject.get(id);
         p.descendants().forEach(ProcessHandle::destroy);
-        Main.serverPidMap.remove(id);
+        Main.serverObject.remove(id);
         ctx.redirect("/serverview/" + id);
     }
 }

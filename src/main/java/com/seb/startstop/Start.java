@@ -21,33 +21,40 @@ public class Start extends JavalinAuthPage {
         if (cancel) return;
         String id = ctx.pathParam("id");
         String name = Mysql.getServerNameFromId(id);
-        Logger.error(name);
         File f = new File(getUser() + "/" + name);
         Thread t = new Thread(() -> {
-            Process process;
+            Process process = null;
             if (Main.isWindows()) {
                 try {
-                    process = new ProcessBuilder("c:\\Windows\\System32\\cmd.exe", "/c start " + f.getAbsolutePath() + "\\start.bat").directory(f).start();
+                    process = new ProcessBuilder(f.getAbsolutePath() + "/start.bat").directory(f).start();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             } else {
                 try {
-                    process = new ProcessBuilder("/bin/sh ", name + "/start.sh").directory(f).start();
+                    process = new ProcessBuilder(f.getAbsolutePath() + "/start.sh").directory(f).start();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    Logger.error(e);
                 }
             }
-            Main.serverPidMap.put(id, process);
+            Main.serverObject.put(id, process);
             wait.set(true);
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+            /*try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String line;
                 while ((line = in.readLine()) != null) {
-                    Logger.debug(line);
+                    Logger.info(line);
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Logger.error(e);
             }
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+                String line;
+                while ((line = in.readLine()) != null) {
+                    Logger.error(line);
+                }
+            } catch (IOException e) {
+                Logger.error(e);
+            }*/
         });
         t.start();
         do {

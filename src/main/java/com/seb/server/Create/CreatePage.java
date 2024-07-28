@@ -1,4 +1,4 @@
-package com.seb.Create;
+package com.seb.server.Create;
 
 import com.seb.abs.JavalinLoggedInPage;
 import io.javalin.http.Context;
