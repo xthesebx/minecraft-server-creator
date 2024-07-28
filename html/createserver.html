@@ -1,13 +1,15 @@
 <body>
 <button onclick="location='/logout'" style="float: right">logout</button>
 <form method="post" action="/createserver" enctype="multipart/form-data" id="form">
-    <input type="text" name="name" placeholder="server name" required>
+    <label>
+        <input type="text" name="name" placeholder="server name" required>
+    </label>
     <br>
     upload existing world (not necessary)<input type="file" name="files" webkitdirectory="" directory="" multiple placeholder="world upload">
     <br>
     <button>Submit</button>
 </form>
-<select id="version" name="version" form="form">
+<label for="version"></label><select id="version" name="version" form="form">
     $OPTIONS
 </select>
 <button onclick="location='/'">Cancel</button>

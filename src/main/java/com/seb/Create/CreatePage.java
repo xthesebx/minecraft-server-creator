@@ -15,11 +15,11 @@ public class CreatePage extends JavalinLoggedInPage {
         if (cancel) return;
         String html = Files.readString(Path.of("html/createserver.html"));
         JSONArray paperVersions = Paper.getPaperVersions();
-        String options = "";
+        StringBuilder options = new StringBuilder();
         for (int i = 1; i <= paperVersions.length(); i++) {
-            options += "<option value=" + paperVersions.getString(paperVersions.length() - i) + ">" + paperVersions.getString(paperVersions.length() - i) + "</option>";
+            options.append("<option value=").append(paperVersions.getString(paperVersions.length() - i)).append(">").append(paperVersions.getString(paperVersions.length() - i)).append("</option>");
         }
-        html = html.replace("$OPTIONS", options);
+        html = html.replace("$OPTIONS", options.toString());
 
         ctx.html(html);
     }

@@ -17,28 +17,27 @@ import com.seb.startstop.Start;
 import com.seb.startstop.Stop;
 import io.javalin.Javalin;
 
-import java.io.IOException;
 
 public class Webserver {
-    public Webserver() throws IOException {
+    public Webserver() {
         Javalin javalin = Javalin.create().start(8080);
 
-        javalin.post("/createserver", ctx -> new CreateServer(ctx));
-        javalin.post("/loginpost", ctx -> new Login(ctx));
-        javalin.post("/editversion/<id>", ctx -> new EditVersion(ctx));
-        javalin.post("/start/<id>", ctx -> new Start(ctx));
-        javalin.post("/stop/<id>", ctx -> new Stop(ctx));
-        javalin.post("/kill", ctx -> new Kill(ctx));
-        javalin.post("/createcodes", ctx -> new CreateCodes(ctx));
-        javalin.post("/registerpost", ctx -> new Register(ctx));
-        javalin.get("/logout", ctx -> new Logout(ctx));
+        javalin.post("/createserver", CreateServer::new);
+        javalin.post("/loginpost", Login::new);
+        javalin.post("/editversion/<id>", EditVersion::new);
+        javalin.post("/start/<id>", Start::new);
+        javalin.post("/stop/<id>", Stop::new);
+        javalin.post("/kill", Kill::new);
+        javalin.post("/createcodes", CreateCodes::new);
+        javalin.post("/registerpost", Register::new);
+        javalin.get("/logout", Logout::new);
 
-        javalin.get("/createpage", ctx -> new CreatePage(ctx));
-        javalin.get("/login", ctx -> new LoginPage(ctx));
-        javalin.get("/", ctx -> new Overview(ctx));
-        javalin.get("/serverview/<id>", ctx -> new ServerView(ctx));
-        javalin.get("/edit/<id>", ctx -> new EditServerPage(ctx));
-        javalin.get("/admin", ctx -> new AdminOverview(ctx));
-        javalin.get("/register", ctx -> new RegisterPage(ctx));
+        javalin.get("/createpage", CreatePage::new);
+        javalin.get("/login", LoginPage::new);
+        javalin.get("/", Overview::new);
+        javalin.get("/serverview/<id>", ServerView::new);
+        javalin.get("/edit/<id>", EditServerPage::new);
+        javalin.get("/admin", AdminOverview::new);
+        javalin.get("/register", RegisterPage::new);
     }
 }

@@ -9,6 +9,7 @@ import io.javalin.util.FileUtil;
 
 import java.io.*;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Random;
 
 public class CreateServer extends JavalinLoggedInPage {
@@ -53,7 +54,7 @@ public class CreateServer extends JavalinLoggedInPage {
         } while (Mysql.serverIdExists(id));
         Mysql.addServer(id, name, i, Main.sessionUserTimer.getJSONObject(ctx.cookie("JSESSIONID")).getString("user"), version);
         String jarname = "";
-        for (File f : dir.listFiles()) if (f.getName().startsWith("paper")) jarname = f.getName();
+        for (File f : Objects.requireNonNull(dir.listFiles())) if (f.getName().startsWith("paper")) jarname = f.getName();
         if (!Main.isWindows()) {
             out = new PrintWriter(user + "/" + name + "/start.sh");
             out.println("screen -mS " + user + "_" + name + " /home/jdk-22.0.1/bin/java -Xms1G -Xmx 1G -jar " + jarname);

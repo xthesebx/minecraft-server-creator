@@ -24,17 +24,17 @@ public class Paper {
         BufferedInputStream in = new BufferedInputStream(connection.getInputStream());
         byte[] buffer = new byte[1024];
         int read;
-        String text = "";
+        StringBuilder text = new StringBuilder();
         while ((read = in.read(buffer)) != -1) {
-            text = text + new String(buffer, 0, read);
+            text.append(new String(buffer, 0, read));
         }
         in.close();
         connection.disconnect();
-        return new JSONArray(new JSONObject(text).getJSONArray("versions"));
+        return new JSONArray(new JSONObject(text.toString()).getJSONArray("versions"));
     }
 
     public static void downloadPaperBuild(String version, File dir) throws IOException, NoSuchAlgorithmException {
-        String hash = "", checksum = "";
+        String hash, checksum;
         do {
             JSONObject object = new JSONObject(Paper.getLatestPaperBuild(version));
             JSONArray builds = object.getJSONArray("builds");
@@ -73,12 +73,12 @@ public class Paper {
         BufferedInputStream in = new BufferedInputStream(connection.getInputStream());
         byte[] buffer = new byte[1024];
         int read;
-        String text = "";
+        StringBuilder text = new StringBuilder();
         while ((read = in.read(buffer)) != -1) {
-            text = text + new String(buffer, 0, read);
+            text.append(new String(buffer, 0, read));
         }
         in.close();
         connection.disconnect();
-        return text;
+        return text.toString();
     }
 }

@@ -9,11 +9,7 @@ public class Kill extends JavalinAdminPage {
     public Kill(Context ctx) {
         super(ctx);
         if (cancel) return;
-        Main.serverPidMap.values().forEach(pid -> {
-            pid.descendants().forEach(child -> {
-                child.destroy();
-            });
-        });
+        Main.serverPidMap.values().forEach(pid -> pid.descendants().forEach(ProcessHandle::destroy));
         System.exit(0);
     }
 }

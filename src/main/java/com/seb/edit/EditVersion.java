@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class EditVersion extends JavalinAuthPage {
     public EditVersion(Context ctx) throws SQLException, IOException, NoSuchAlgorithmException {
@@ -19,13 +20,13 @@ public class EditVersion extends JavalinAuthPage {
         String version = ctx.formParam("version");
         String name = Mysql.getServerNameFromId(ctx.pathParam("id"));
         File dir = new File(name);
-        for (File f : dir.listFiles()) {
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
             if (f.getName().startsWith("paper")) f.delete();
         }
         Paper.downloadPaperBuild(version, dir);
         Mysql.updateVersion(ctx.pathParam("id"), version);
         String jarname = "";
-        for (File f : dir.listFiles()) {
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
             if (f.getName().startsWith("paper")) jarname = f.getName();
         }
         PrintWriter out;

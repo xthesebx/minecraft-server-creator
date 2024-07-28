@@ -17,7 +17,7 @@ public class AdminOverview extends JavalinAdminPage {
         StringBuilder sb = new StringBuilder();
         ResultSet rs = Mysql.getCodes();
         while (rs.next()) {
-            sb.append("<a onmouseout=\"this.style.background='#ffffff'\" onmouseover=\"this.style.background='#00ffff'\" onclick=\"navigator.clipboard.writeText('" + rs.getString(1) + "');\">" + rs.getString(1) + "</a><br>");
+            sb.append("<a onmouseout=\"this.style.background='#ffffff'\" onmouseover=\"this.style.background='#00ffff'\" onclick=\"navigator.clipboard.writeText('").append(rs.getString(1)).append("');\">").append(rs.getString(1)).append("</a><br>");
         }
         html = html.replace("SHOWCODES", sb.toString());
         ctx.html(html);

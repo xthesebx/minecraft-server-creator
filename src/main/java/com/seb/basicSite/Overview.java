@@ -20,7 +20,7 @@ public class Overview extends JavalinLoggedInPage {
         StringBuilder sb = new StringBuilder();
         while (rs.next()) {
             String id = rs.getString(1);
-            sb.append("<tr onclick=\"window.location='/serverview/" + id + "'\"> <td>" + rs.getString(3) + "</td> <td> " + rs.getString(5) + "</td> <td>" + id + "</td> <td>" + rs.getInt(2) + "</td> </tr>");
+            sb.append("<tr onclick=\"window.location='/serverview/").append(id).append("'\"> <td>").append(rs.getString(3)).append("</td> <td> ").append(rs.getString(5)).append("</td> <td>").append(id).append("</td> <td>").append(rs.getInt(2)).append("</td> </tr>");
         }
         html = html.replace("$EINTRÄGE", sb.toString());
         Logger.error(Main.sessionUserTimer.getJSONObject(ctx.cookie("JSESSIONID")).getString("user"));

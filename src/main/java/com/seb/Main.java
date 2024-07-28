@@ -20,17 +20,12 @@ public class Main {
             support tickets, maybe with discord bot?
             better error handling, ui, testing (alpha tester?)
          */
-        new Main();
-    }
-
-    public Main() throws IOException, SQLException {
         new Webserver();
         Mysql.createMysql();
     }
 
     public static boolean isLoggedIn(String sessionId) {
-        if (sessionId == null || !Main.sessionUserTimer.has(sessionId) || !Main.sessionUserTimer.getJSONObject(sessionId).has("timestamp") || Main.sessionUserTimer.getJSONObject(sessionId).getLong("timestamp") < System.currentTimeMillis() || !Main.sessionUserTimer.getJSONObject(sessionId).get("loginstatus").equals(LoginStatus.SUCCESS)) return false;
-        else return true;
+        return sessionId != null && Main.sessionUserTimer.has(sessionId) && Main.sessionUserTimer.getJSONObject(sessionId).has("timestamp") && Main.sessionUserTimer.getJSONObject(sessionId).getLong("timestamp") >= System.currentTimeMillis() && Main.sessionUserTimer.getJSONObject(sessionId).get("loginstatus").equals(LoginStatus.SUCCESS);
     }
 
     public static boolean isWindows() {

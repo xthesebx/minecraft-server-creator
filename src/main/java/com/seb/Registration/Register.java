@@ -18,6 +18,7 @@ public class Register extends JavalinPage {
         String password = ctx.formParam("password");
         Logger.error(Mysql.codeExists(code));
         if (Mysql.codeExists(code)) {
+            assert password != null;
             byte[] data = password.getBytes();
             byte[] hashresult = MessageDigest.getInstance("SHA-256").digest(data);
             StringBuilder sb = new StringBuilder();

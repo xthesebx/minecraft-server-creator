@@ -18,12 +18,12 @@ public class EditServerPage extends JavalinAuthPage {
         html = html.replaceAll("SERVERID", ctx.pathParam("id"));
         String baseversion = Mysql.getServerVersion(ctx.pathParam("id"));
         JSONArray paperVersions = Paper.getPaperVersions();
-        String options = "";
+        StringBuilder options = new StringBuilder();
         for (int i = 1; i <= paperVersions.length(); i++) {
             String version = paperVersions.getString(paperVersions.length() - i);
-            options += "<option value=" + version + " " + (baseversion.equals(version) ? "selected" : "") + ">" + version + "</option>";
+            options.append("<option value=").append(version).append(" ").append(baseversion.equals(version) ? "selected" : "").append(">").append(version).append("</option>");
         }
-        html = html.replace("VERSION", options);
+        html = html.replace("VERSION", options.toString());
         ctx.html(html);
     }
 }

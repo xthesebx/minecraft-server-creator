@@ -5,6 +5,7 @@ import com.seb.abs.JavalinAdminPage;
 import io.javalin.http.Context;
 
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Random;
 
 public class CreateCodes extends JavalinAdminPage {
@@ -13,7 +14,7 @@ public class CreateCodes extends JavalinAdminPage {
         if (cancel) return;
         Random ran = new Random();
         byte[] code = new byte[16];
-        for (int i = 0; i < Integer.parseInt(ctx.formParam("count")); i++) {
+        for (int i = 0; i < Integer.parseInt(Objects.requireNonNull(ctx.formParam("count"))); i++) {
             ran.nextBytes(code);
             StringBuilder sb = new StringBuilder();
             for (byte b : code) {
