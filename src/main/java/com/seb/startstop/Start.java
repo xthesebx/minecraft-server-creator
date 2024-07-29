@@ -39,10 +39,10 @@ public class Start extends JavalinAuthPage {
             }
             Main.serverObject.put(id, process);
             wait.set(true);
-            /*try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String line;
                 while ((line = in.readLine()) != null) {
-                    Logger.info(line);
+                    Logger.debug(line);
                 }
             } catch (IOException e) {
                 Logger.error(e);
@@ -50,11 +50,11 @@ public class Start extends JavalinAuthPage {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
                 String line;
                 while ((line = in.readLine()) != null) {
-                    Logger.error(line);
+                    Logger.debug(line);
                 }
             } catch (IOException e) {
                 Logger.error(e);
-            }*/
+            }
         });
         t.start();
         do {
