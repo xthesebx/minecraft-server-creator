@@ -14,7 +14,7 @@ public class Main {
     public static HashMap<String, Process> serverObject = new HashMap<>();
 
     public static void main(String[] args) throws IOException, SQLException {
-        /*TODO: delete server, delete world (for resets), world download
+        /*TODO: test linux suppert!!! delete server, delete world (for resets), world download
             Plugin upload + config settings (force port on value tho)
             Donation link, support for forge + maybe spigot?
             support tickets, maybe with discord bot?
