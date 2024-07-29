@@ -25,7 +25,7 @@ public class Mysql {
     public static int freePort() throws SQLException {
         ResultSet rs = con.prepareStatement("SELECT max(servers.port) FROM servers;").executeQuery();
         rs.next();
-        return(rs.getInt(1) + 1);
+        return((rs.getInt(1) <= 25565) ? 25566 : rs.getInt(1) + 1);
     }
 
     public static LoginStatus login(String username, String password) throws SQLException {

@@ -57,7 +57,7 @@ public class CreateServer extends JavalinLoggedInPage {
         for (File f : Objects.requireNonNull(dir.listFiles())) if (f.getName().startsWith("paper")) jarname = f.getName();
         if (!Main.isWindows()) {
             out = new PrintWriter(user + "/" + name + "/start.sh");
-            out.println("screen -mS " + user + "_" + name + " /home/jdk-22.0.1/bin/java -Xms1G -Xmx 1G -jar " + jarname +  " --nogui");
+            out.println("/home/jdk-22.0.1/bin/java -Xms1G -Xmx 1G -jar " + jarname +  " --nogui");
         }
         else {
             out = new PrintWriter(user + "/" + name + "/start.bat");

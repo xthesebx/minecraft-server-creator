@@ -32,7 +32,7 @@ public class EditVersion extends JavalinAuthPage {
         PrintWriter out;
         if (!Main.isWindows()) {
             out = new PrintWriter(name + "/start.sh");
-            out.println("screen -mS " + name + " /home/jdk-22.0.1/bin/java -Xms1G -Xmx 1G -jar " + jarname + " --nogui");
+            out.println("/home/jdk-22.0.1/bin/java -Xms1G -Xmx1G -jar " + jarname + " --nogui");
         }
         else {
             out = new PrintWriter(name + "/start.bat");

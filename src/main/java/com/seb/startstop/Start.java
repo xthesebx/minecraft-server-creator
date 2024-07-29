@@ -39,7 +39,7 @@ public class Start extends JavalinAuthPage {
             }
             Main.serverObject.put(id, process);
             wait.set(true);
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+            /*try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String line;
                 while ((line = in.readLine()) != null) {
                     Logger.debug(line);
@@ -54,7 +54,7 @@ public class Start extends JavalinAuthPage {
                 }
             } catch (IOException e) {
                 Logger.error(e);
-            }
+            }*/
         });
         t.start();
         do {
