@@ -36,6 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/mysqldata
+/mysqldata.json
 /logs/
 /stdbasti/

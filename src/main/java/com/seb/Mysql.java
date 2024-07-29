@@ -1,6 +1,7 @@
 package com.seb;
 
 import com.seb.Login.LoginStatus;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,9 +16,9 @@ public class Mysql {
     public static Connection con;
 
     public static void createMysql() throws SQLException, IOException {
-        String data = Files.readString(Path.of("mysqldata"));
-        String username = data.substring(0, data.indexOf("\n") - 1);
-        String password = data.substring(data.indexOf("\n") + 1);
+        JSONObject data = new JSONObject(Files.readString(Path.of("mysqldata.json")));
+        String password = data.getString("password");
+        String username = data.getString("username");
         con = DriverManager.getConnection("jdbc:mariadb://sebgameservers.de:3306/nitrado", username, password);
     }
 
