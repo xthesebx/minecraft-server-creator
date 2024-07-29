@@ -32,7 +32,7 @@ public class Start extends JavalinAuthPage {
                 }
             } else {
                 try {
-                    process = new ProcessBuilder("/bin/sh" , f.getAbsolutePath() + "/start.sh").directory(f).start();
+                    process = new ProcessBuilder(f.getAbsolutePath() + "/start.sh").directory(f).start();
                 } catch (IOException e) {
                     Logger.error(e);
                 }
