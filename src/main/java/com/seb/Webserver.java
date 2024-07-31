@@ -17,6 +17,7 @@ import com.seb.basicSite.Overview;
 import com.seb.server.ServerView;
 import com.seb.server.edit.EditServerPage;
 import com.seb.server.edit.EditVersion;
+import com.seb.server.edit.WorldDelete;
 import com.seb.startstop.Start;
 import com.seb.startstop.Stop;
 import io.javalin.Javalin;
@@ -40,8 +41,9 @@ public class Webserver {
         javalin.post("/kill", Kill::new);
         javalin.post("/createcodes", CreateCodes::new);
         javalin.post("/registerpost", Register::new);
-        javalin.get("/logout", Logout::new);
+        javalin.post("/deleteworld/<id>", WorldDelete::new);
 
+        javalin.get("/logout", Logout::new);
         javalin.get("/createpage", CreatePage::new);
         javalin.get("/login", LoginPage::new);
         javalin.get("/", Overview::new);

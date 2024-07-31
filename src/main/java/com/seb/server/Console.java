@@ -51,7 +51,6 @@ public class Console {
                 Logger.error(e);
             }
         }).start();
-        Logger.error("done?");
     }
 
     protected String getUser() {

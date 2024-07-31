@@ -7,4 +7,6 @@
 <label for="version"></label><select id="version" name="version" form="form" >
     VERSION
 </select>
-<button onclick="window.location='/deleteworld/SERVERID'">DELETE WORLD</button>
+<form method="post" action="/deleteworld/SERVERID" enctype="multipart/form-data" id="worlddelete">
+    <button>Delete world</button>
+</form>
