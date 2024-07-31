@@ -10,6 +10,9 @@ public class JavalinAuthPage extends JavalinLoggedInPage {
         super(ctx);
         if (cancel) return;
         String serverId = ctx.pathParam("id");
-        if (!Mysql.getServerOwner(serverId).equals(getUser())) cancel = true;
+        if (!Mysql.getServerOwner(serverId).equals(getUser())) {
+            cancel = true;
+            ctx.redirect("/");
+        }
     }
 }
