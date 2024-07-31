@@ -13,7 +13,7 @@ public class JavalinAuthPage extends JavalinLoggedInPage {
         String serverId = ctx.pathParam("id");
         if (!Mysql.getServerOwner(serverId).equals(getUser())) {
             cancel = true;
-            ctx.json(new ForbiddenResponse("You are not the owner of this server"));
+            ctx.status(403);
         }
     }
 }
