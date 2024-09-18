@@ -3,13 +3,13 @@ package com.seb.startstop;
 import com.hawolt.logger.Logger;
 import com.seb.Main;
 import com.seb.Mysql;
+import com.seb.Webserver;
 import com.seb.abs.JavalinAuthPage;
+import com.seb.server.Console;
 import io.javalin.http.Context;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -38,23 +38,12 @@ public class Start extends JavalinAuthPage {
                 }
             }
             Main.serverObject.put(id, process);
-            wait.set(true);
-            /*try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line;
-                while ((line = in.readLine()) != null) {
-                    Logger.debug(line);
-                }
-            } catch (IOException e) {
+            try {
+                Webserver.consoles.put(id, new Console(id));
+            } catch (IOException | SQLException e) {
                 Logger.error(e);
             }
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                String line;
-                while ((line = in.readLine()) != null) {
-                    Logger.debug(line);
-                }
-            } catch (IOException e) {
-                Logger.error(e);
-            }*/
+            wait.set(true);
         });
         t.start();
         do {
