@@ -1,5 +1,6 @@
 package com.seb.server.edit;
 
+import com.hawolt.logger.Logger;
 import com.seb.server.Create.Paper;
 import com.seb.Main;
 import com.seb.Mysql;
@@ -18,8 +19,11 @@ public class EditVersion extends JavalinAuthPage {
         super(ctx);
         if (cancel) return;
         String version = ctx.formParam("version");
-        String name = Mysql.getServerNameFromId(ctx.pathParam("id"));
-        File dir = new File(name);
+        String id = ctx.pathParam("id");
+        String name = Mysql.getServerNameFromId(id);
+        String user = Mysql.getServerOwner(id);
+        String path = user + "/" + name;
+        File dir = new File(path);
         for (File f : Objects.requireNonNull(dir.listFiles())) {
             if (f.getName().startsWith("paper")) f.delete();
         }
@@ -31,11 +35,11 @@ public class EditVersion extends JavalinAuthPage {
         }
         PrintWriter out;
         if (!Main.isWindows()) {
-            out = new PrintWriter(name + "/start.sh");
+            out = new PrintWriter(path + "/start.sh");
             out.println("/home/jdk-22.0.1/bin/java -Xms1G -Xmx1G -jar " + jarname + " --nogui");
         }
         else {
-            out = new PrintWriter(name + "/start.bat");
+            out = new PrintWriter(path + "/start.bat");
             out.println("D:\\Downloads\\jdk-21.0.3_windows-x64_bin\\jdk-21.0.3\\bin\\java.exe -jar " + jarname + " --nogui");
         }
         out.close();
