@@ -1,8 +1,11 @@
+<head>
+    <title>Server View</title>
+</head>
 <body>
 <button onclick="window.location='/'">Go back</button>
 <button onclick="location='/logout'" style="float: right">logout</button>
 <button onclick="window.location='/edit/SERVERID'">edit</button>
-<button onclick="location='/console/SERVERID'">Console</button>
+<button onclick="location.href='/console/SERVERID'">Console</button>
 <form method="post" action="/STATUS/SERVERID" id="form">
 <button>STATUS Server</button>
 </form>
