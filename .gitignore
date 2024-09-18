@@ -39,3 +39,4 @@ build/
 /mysqldata.json
 /logs/
 /stdbasti/
+/botkey.env
