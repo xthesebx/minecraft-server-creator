@@ -21,15 +21,15 @@ import com.seb.server.edit.WorldDelete;
 import com.seb.startstop.Start;
 import com.seb.startstop.Stop;
 import io.javalin.Javalin;
+import io.javalin.websocket.WsCloseStatus;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.SQLException;
+import java.util.HashMap;
 
 
 public class Webserver {
-    Console console;
+    public static HashMap<String, Console> consoles = new HashMap<>();
     public Webserver() {
         Javalin javalin = Javalin.create().start(8080);
 
@@ -55,8 +55,21 @@ public class Webserver {
         javalin.get("/websocket.js", ctx -> ctx.result(Files.readString(Path.of("html/websocket.js"))));
 
         javalin.ws("/ws/console/<id>", ws -> {
-            ws.onConnect(ctx -> console = new Console(ctx));
-            ws.onMessage(ctx -> console.read(ctx));
+            ws.onConnect(ctx -> {
+                if (consoles.containsKey(ctx.pathParam("id")))
+                    consoles.get(ctx.pathParam("id")).addContext(ctx);
+                else ctx.closeSession(WsCloseStatus.POLICY_VIOLATION, "Start the Server first!");
+            });
+            ws.onMessage(ctx -> {
+                if (consoles.containsKey(ctx.pathParam("id")))
+                    consoles.get(ctx.pathParam("id")).read(ctx);
+                else ctx.closeSession(WsCloseStatus.POLICY_VIOLATION, "Start the Server first!");
+            });
+            ws.onClose(ctx -> {
+                if (consoles.containsKey(ctx.pathParam("id")))
+                    consoles.get(ctx.pathParam("id")).removeContext(ctx);
+                else ctx.closeSession(WsCloseStatus.POLICY_VIOLATION, "Start the Server first!");
+            });
         });
     }
 }
