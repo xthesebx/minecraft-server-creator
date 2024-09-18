@@ -20,6 +20,7 @@ public class AdminOverview extends JavalinAdminPage {
             sb.append("<a onmouseout=\"this.style.background='#ffffff'\" onmouseover=\"this.style.background='#00ffff'\" onclick=\"navigator.clipboard.writeText('").append(rs.getString(1)).append("');\">").append(rs.getString(1)).append("</a><br>");
         }
         html = html.replace("SHOWCODES", sb.toString());
+        html += "</body>";
         ctx.html(html);
     }
 }
